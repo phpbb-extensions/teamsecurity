@@ -71,8 +71,15 @@ class teamsecurity_module
 				trigger_error($this->user->lang('FORM_INVALID') . adm_back_link($this->u_action), E_USER_WARNING);
 			}
 
+			// Validate the email address submitted by the user
+			$sec_contact = $this->request->variable('sec_contact', '');
+			if ($sec_contact != '' && !preg_match('/^' . get_preg_expression('email') . '$/i', $sec_contact))
+			{
+				trigger_error($this->user->lang('EMAIL_INVALID_EMAIL') . adm_back_link($this->u_action), E_USER_WARNING);
+			}
+
+			$this->config->set('sec_contact', $sec_contact);
 			$this->config->set('sec_login_email', $this->request->variable('sec_login_email', 0));
-			$this->config->set('sec_contact', $this->request->variable('sec_contact', ''));
 			$this->config->set('sec_login_attempts', $this->request->variable('sec_login_attempts', 0));
 			$this->config->set('sec_strong_pass', $this->request->variable('sec_strong_pass', 0));
 			$this->config->set('sec_min_pass_chars', $this->request->variable('sec_min_pass_chars', 0));
