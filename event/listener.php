@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * phpBB Team Security Measures
+ * Team Security Measures extension for the phpBB Forum Software package.
  *
  * @copyright (c) 2014 phpBB Limited <https://www.phpbb.com>
  * @license GNU General Public License, version 2 (GPL-2.0)
@@ -157,7 +157,7 @@ class listener implements EventSubscriberInterface
 			}
 
 			$messenger = new \messenger(false);
-			$messenger->template('acp_login', 'en');
+			$messenger->set_template_ext('phpbb/teamsecurity', 'acp_login', 'en');
 			$messenger->to((!empty($this->config['sec_contact'])) ? $this->config['sec_contact'] : $this->config['board_contact'], $this->config['board_contact_name']);
 			$messenger->assign_vars(array(
 				'USERNAME'		=> $this->user->data['username'],
