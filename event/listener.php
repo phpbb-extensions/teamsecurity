@@ -162,7 +162,7 @@ class listener implements EventSubscriberInterface
 			$messenger->assign_vars(array(
 				'USERNAME'		=> $this->user->data['username'],
 				'IP_ADDRESS'	=> $this->user->ip,
-				'LOGIN_TIME'	=> date('l jS \of F Y \a\t h:i:s A', time()),
+				'LOGIN_TIME'	=> $this->user->format_date(time(), 'D M d, Y H:i:s A', true),
 			));
 			$messenger->send();
 		}
