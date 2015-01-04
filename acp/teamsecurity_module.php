@@ -72,6 +72,7 @@ class teamsecurity_module
 			}
 
 			$this->config->set('sec_login_email', $this->request->variable('sec_login_email', 0));
+			$this->config->set('sec_contact', $this->request->variable('sec_contact', ''));
 			$this->config->set('sec_login_attempts', $this->request->variable('sec_login_attempts', 0));
 			$this->config->set('sec_strong_pass', $this->request->variable('sec_strong_pass', 0));
 			$this->config->set('sec_min_pass_chars', $this->request->variable('sec_min_pass_chars', 0));
@@ -88,6 +89,7 @@ class teamsecurity_module
 		// Set output vars for display in the template
 		$this->template->assign_vars(array(
 			'S_ACP_LOGIN_EMAIL'		=> $this->config['sec_login_email'],
+			'ACP_CONTACT_EMAIL'		=> $this->config['sec_contact'],
 			'S_ACP_LOGIN_ATTEMPTS'	=> $this->config['sec_login_attempts'],
 			'S_ACP_STRONG_PASS'		=> $this->config['sec_strong_pass'],
 			'ACP_MIN_PASS_CHARS'	=> $this->config['sec_min_pass_chars'],

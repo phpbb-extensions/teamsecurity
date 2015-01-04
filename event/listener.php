@@ -158,7 +158,7 @@ class listener implements EventSubscriberInterface
 
 			$messenger = new \messenger(false);
 			$messenger->template('acp_login', 'en');
-			$messenger->to($this->config['board_contact'], $this->config['board_contact_name']);
+			$messenger->to($this->config['sec_contact']);
 			$messenger->assign_vars(array(
 				'USERNAME'		=> $this->user->data['username'],
 				'IP_ADDRESS'	=> $this->user->ip,
