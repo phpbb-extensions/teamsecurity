@@ -61,6 +61,12 @@ class teamsecurity_module
 		$this->tpl_name = 'acp_teamsecurity';
 		$this->page_title = $this->user->lang('ACP_TEAM_SECURITY_SETTINGS');
 
+		// Only allow founders to view/manage these settings
+		if ($this->user->data['user_type'] != USER_FOUNDER)
+		{
+			trigger_error($this->user->lang['ACP_FOUNDER_MANAGE_ONLY'], E_USER_WARNING);
+		}
+
 		$form_key = 'acp_teamsecurity';
 		add_form_key($form_key);
 

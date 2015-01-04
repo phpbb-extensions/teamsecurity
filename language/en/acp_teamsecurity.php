@@ -22,6 +22,7 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
+	'ACP_FOUNDER_MANAGE_ONLY'				=> 'You are not authorised to access these settings. Only a board founder can access these settings.',
 	'ACP_TEAM_SECURITY_SETTINGS'			=> 'Team Security Settings',
 	'ACP_TEAM_SECURITY_SETTINGS_EXPLAIN'	=> 'From this page you can manage various security options to watch over and help identify possible attacks against team member accounts.',
 	'ACP_LOGIN_EMAIL'						=> 'Enable ACP login notifications',
