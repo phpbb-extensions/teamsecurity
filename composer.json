@@ -2,7 +2,7 @@
 	"name": "phpbb/teamsecurity",
 	"type": "phpbb-extension",
 	"description": "Security measures to help watch over team member accounts.",
-	"homepage": "https://phpbb.com",
+	"homepage": "https://www.phpbb.com",
 	"version": "1.0.0",
 	"license": "GPL-2.0",
 	"authors": [
