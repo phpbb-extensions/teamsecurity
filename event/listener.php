@@ -157,7 +157,7 @@ class listener implements EventSubscriberInterface
 			}
 
 			$messenger = new \messenger(false);
-			$messenger->template('acp_login', 'en');
+			$messenger->set_template_ext('phpbb/teamsecurity', 'acp_login', 'en');
 			$messenger->to($this->config['board_contact'], $this->config['board_contact_name']);
 			$messenger->assign_vars(array(
 				'USERNAME'		=> $this->user->data['username'],
