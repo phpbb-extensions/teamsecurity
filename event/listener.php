@@ -157,12 +157,12 @@ class listener implements EventSubscriberInterface
 			}
 
 			$messenger = new \messenger(false);
-			$messenger->set_template_ext('phpbb/teamsecurity', 'acp_login', 'en');
+			$messenger->set_template_ext('phpbb/teamsecurity', 'acp_login');
 			$messenger->to((!empty($this->config['sec_contact'])) ? $this->config['sec_contact'] : $this->config['board_contact'], $this->config['board_contact_name']);
 			$messenger->assign_vars(array(
 				'USERNAME'		=> $this->user->data['username'],
 				'IP_ADDRESS'	=> $this->user->ip,
-				'LOGIN_TIME'	=> date('l jS \of F Y \a\t h:i:s A', time()),
+				'LOGIN_TIME'	=> $this->user->format_date(time(), 'D M d, Y H:i:s A', true),
 			));
 			$messenger->send();
 		}
