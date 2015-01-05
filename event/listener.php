@@ -140,14 +140,14 @@ class listener implements EventSubscriberInterface
 			// Send an email to the board security contact identifying the logs
 			if (isset($event['conditions']['keywords']))
 			{
-				// Delete All
+				// Delete All was selected
 				$this->send_message(array_merge($user_data, array(
 					'LOGS_SELECTED' => $this->user->lang('LOG_DELETE_ALL')
 				)), 'acp_logs');
 			}
 			else if (isset($event['conditions']['log_id']['IN']))
 			{
-				// Selected logs
+				// Marked logs were selected
 				$this->send_message(array_merge($user_data, array(
 					'LOGS_SELECTED' => $this->user->lang('LOG_DELETE_MARKED', implode(', ', $event['conditions']['log_id']['IN']))
 				)), 'acp_logs');
