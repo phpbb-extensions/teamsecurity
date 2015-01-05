@@ -142,15 +142,15 @@ class listener implements EventSubscriberInterface
 			{
 				// Delete All
 				$this->send_message(array_merge($user_data, array(
-					'LOGS_SELECTED' => $this->user->lang('LOG_DELETE_ALL'))
-				), 'acp_logs');
+					'LOGS_SELECTED' => $this->user->lang('LOG_DELETE_ALL')
+				)), 'acp_logs');
 			}
 			else if (isset($event['conditions']['log_id']['IN']))
 			{
 				// Selected logs
 				$this->send_message(array_merge($user_data, array(
-					'LOGS_SELECTED' => $this->user->lang('LOG_DELETE_MARKED', implode(', ', $event['conditions']['log_id']['IN'])))
-				), 'acp_logs');
+					'LOGS_SELECTED' => $this->user->lang('LOG_DELETE_MARKED', implode(', ', $event['conditions']['log_id']['IN']))
+				)), 'acp_logs');
 			}
 		}
 	}
