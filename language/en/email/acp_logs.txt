@@ -2,6 +2,6 @@ Subject: {SITENAME} Admin Log Deletion Attempted
 
 The user "{USERNAME}" recently attempted to delete the following Admin logs at {TIME} from the IP address {IP_ADDRESS}:
 
-{LOGS_SELECTED)
+{LOGS_SELECTED}
 
 {EMAIL_SIG}
