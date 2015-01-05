@@ -64,6 +64,7 @@ class listener implements EventSubscriberInterface
 		return array(
 			'core.acp_users_overview_before'	=> 'set_team_password_configs',
 			'core.ucp_display_module_before'	=> 'set_team_password_configs',
+			'core.delete_log'					=> 'admin_logs_security',
 			'core.login_box_failed'				=> 'log_failed_login_attempts',
 			'core.login_box_redirect'			=> 'acp_login_notification',
 			'core.user_setup'					=> 'load_language_on_setup',
@@ -111,6 +112,45 @@ class listener implements EventSubscriberInterface
 			{
 				$this->config['pass_complex'] = 'PASS_TYPE_SYMBOL';
 				$this->config['min_pass_chars'] = ($this->config['min_pass_chars'] > $this->config['sec_min_pass_chars']) ? $this->config['min_pass_chars'] : $this->config['sec_min_pass_chars'];
+			}
+		}
+	}
+
+	/**
+	 * Prevent deletion of Admin logs and notify board security contact
+	 *
+	 * @param object $event The event object
+	 * @return null
+	 * @access public
+	 */
+	public function admin_logs_security($event)
+	{
+		if ($event['mode'] == 'admin')
+		{
+			// Set log_type to false to prevent deletion of logs
+			$event['log_type'] = false;
+
+			// Get information on the user
+			$user_data = array(
+				'USERNAME'		=> $this->user->data['username'],
+				'IP_ADDRESS'	=> $this->user->ip,
+				'TIME'			=> $this->user->format_date(time(), 'D M d, Y H:i:s A', true),
+			);
+
+			// Send an email to the board security contact identifying the logs
+			if (isset($event['conditions']['keywords']))
+			{
+				// Delete All
+				$this->send_message(array_merge($user_data, array(
+					'LOGS_SELECTED' => $this->user->lang('LOG_DELETE_ALL'))
+				), 'acp_logs');
+			}
+			else if (isset($event['conditions']['log_id']['IN']))
+			{
+				// Selected logs
+				$this->send_message(array_merge($user_data, array(
+					'LOGS_SELECTED' => $this->user->lang('LOG_DELETE_MARKED', implode(', ', $event['conditions']['log_id']['IN'])))
+				), 'acp_logs');
 			}
 		}
 	}
