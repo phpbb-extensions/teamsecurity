@@ -151,20 +151,11 @@ class listener implements EventSubscriberInterface
 
 		if ($event['admin'])
 		{
-			if (!class_exists('messenger'))
-			{
-				include($this->phpbb_root_path . 'includes/functions_messenger.' . $this->php_ext);
-			}
-
-			$messenger = new \messenger(false);
-			$messenger->template('@phpbb_teamsecurity/acp_login');
-			$messenger->to((!empty($this->config['sec_contact'])) ? $this->config['sec_contact'] : $this->config['board_contact'], $this->config['board_contact_name']);
-			$messenger->assign_vars(array(
+			$this->send_message(array(
 				'USERNAME'		=> $this->user->data['username'],
 				'IP_ADDRESS'	=> $this->user->ip,
 				'LOGIN_TIME'	=> $this->user->format_date(time(), 'D M d, Y H:i:s A', true),
-			));
-			$messenger->send();
+			), 'acp_login');
 		}
 	}
 
@@ -190,5 +181,27 @@ class listener implements EventSubscriberInterface
 		}
 
 		return group_memberships($group_id_ary, $user_id, true);
+	}
+
+	/**
+	 * Send email messages to defined board security contact
+	 *
+	 * @param array $message_data Array of message data
+	 * @param string $template The template file to use
+	 * @return null
+	 * @access protected
+	 */
+	protected function send_message($message_data, $template)
+	{
+		if (!class_exists('messenger'))
+		{
+			include($this->phpbb_root_path . 'includes/functions_messenger.' . $this->php_ext);
+		}
+
+		$messenger = new \messenger(false);
+		$messenger->template('@phpbb_teamsecurity/' . $template);
+		$messenger->to((!empty($this->config['sec_contact'])) ? $this->config['sec_contact'] : $this->config['board_contact'], $this->config['board_contact_name']);
+		$messenger->assign_vars($message_data);
+		$messenger->send();
 	}
 }
