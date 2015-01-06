@@ -135,7 +135,7 @@ class listener implements EventSubscriberInterface
 				'USERNAME'		=> $this->user->data['username'],
 				'IP_ADDRESS'	=> $this->user->ip,
 				'TIME'			=> $this->user->format_date(time(), 'D M d, Y H:i:s A', true),
-				'LOG_MODE'		=> ucfirst($event['mode']),
+				'LOG_MODE'		=> $event['mode'],
 			);
 
 			// Send an email to the board security contact identifying the logs
