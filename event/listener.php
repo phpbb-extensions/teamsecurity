@@ -64,7 +64,7 @@ class listener implements EventSubscriberInterface
 		return array(
 			'core.acp_users_overview_before'	=> 'set_team_password_configs',
 			'core.ucp_display_module_before'	=> 'set_team_password_configs',
-			'core.delete_log'					=> 'admin_logs_security',
+			'core.delete_log'					=> 'delete_logs_security',
 			'core.login_box_failed'				=> 'log_failed_login_attempts',
 			'core.login_box_redirect'			=> 'acp_login_notification',
 			'core.user_setup'					=> 'load_language_on_setup',
@@ -123,7 +123,7 @@ class listener implements EventSubscriberInterface
 	 * @return null
 	 * @access public
 	 */
-	public function admin_logs_security($event)
+	public function delete_logs_security($event)
 	{
 		if (in_array($event['mode'], array('admin', 'mod', 'user', 'users')))
 		{
