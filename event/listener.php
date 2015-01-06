@@ -64,6 +64,7 @@ class listener implements EventSubscriberInterface
 		return array(
 			'core.acp_users_overview_before'	=> 'set_team_password_configs',
 			'core.ucp_display_module_before'	=> 'set_team_password_configs',
+			'core.delete_log'					=> 'admin_logs_security',
 			'core.login_box_failed'				=> 'log_failed_login_attempts',
 			'core.login_box_redirect'			=> 'acp_login_notification',
 			'core.user_setup'					=> 'load_language_on_setup',
@@ -116,6 +117,46 @@ class listener implements EventSubscriberInterface
 	}
 
 	/**
+	 * Prevent deletion of Admin/Moderator/User logs and notify board security contact
+	 *
+	 * @param object $event The event object
+	 * @return null
+	 * @access public
+	 */
+	public function admin_logs_security($event)
+	{
+		if (in_array($event['mode'], array('admin', 'mod', 'user', 'users')))
+		{
+			// Set log_type to false to prevent deletion of logs
+			$event['log_type'] = false;
+
+			// Get information on the user and their action
+			$user_data = array(
+				'USERNAME'		=> $this->user->data['username'],
+				'IP_ADDRESS'	=> $this->user->ip,
+				'TIME'			=> $this->user->format_date(time(), 'D M d, Y H:i:s A', true),
+				'LOG_MODE'		=> $event['mode'],
+			);
+
+			// Send an email to the board security contact identifying the logs
+			if (isset($event['conditions']['keywords']))
+			{
+				// Delete All was selected
+				$this->send_message(array_merge($user_data, array(
+					'LOGS_SELECTED' => $this->user->lang('LOG_DELETE_ALL')
+				)), 'acp_logs');
+			}
+			else if (isset($event['conditions']['log_id']['IN']))
+			{
+				// Marked logs were selected
+				$this->send_message(array_merge($user_data, array(
+					'LOGS_SELECTED' => $this->user->lang('LOG_DELETE_MARKED', implode(', ', $event['conditions']['log_id']['IN']))
+				)), 'acp_logs');
+			}
+		}
+	}
+
+	/**
 	 * Log failed login attempts for members of specific groups
 	 *
 	 * @param object $event The event object
@@ -151,20 +192,11 @@ class listener implements EventSubscriberInterface
 
 		if ($event['admin'])
 		{
-			if (!class_exists('messenger'))
-			{
-				include($this->phpbb_root_path . 'includes/functions_messenger.' . $this->php_ext);
-			}
-
-			$messenger = new \messenger(false);
-			$messenger->template('@phpbb_teamsecurity/acp_login');
-			$messenger->to((!empty($this->config['sec_contact'])) ? $this->config['sec_contact'] : $this->config['board_contact'], $this->config['board_contact_name']);
-			$messenger->assign_vars(array(
+			$this->send_message(array(
 				'USERNAME'		=> $this->user->data['username'],
 				'IP_ADDRESS'	=> $this->user->ip,
 				'LOGIN_TIME'	=> $this->user->format_date(time(), 'D M d, Y H:i:s A', true),
-			));
-			$messenger->send();
+			), 'acp_login');
 		}
 	}
 
@@ -190,5 +222,27 @@ class listener implements EventSubscriberInterface
 		}
 
 		return group_memberships($group_id_ary, $user_id, true);
+	}
+
+	/**
+	 * Send email messages to defined board security contact
+	 *
+	 * @param array $message_data Array of message data
+	 * @param string $template The template file to use
+	 * @return null
+	 * @access protected
+	 */
+	protected function send_message($message_data, $template)
+	{
+		if (!class_exists('messenger'))
+		{
+			include($this->phpbb_root_path . 'includes/functions_messenger.' . $this->php_ext);
+		}
+
+		$messenger = new \messenger(false);
+		$messenger->template('@phpbb_teamsecurity/' . $template);
+		$messenger->to((!empty($this->config['sec_contact'])) ? $this->config['sec_contact'] : $this->config['board_contact'], $this->config['board_contact_name']);
+		$messenger->assign_vars($message_data);
+		$messenger->send();
 	}
 }
