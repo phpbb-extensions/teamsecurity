@@ -1,6 +1,6 @@
 Subject: {SITENAME} {LOG_MODE} log deletion attempted
 
-The user "{USERNAME}" recently attempted to delete the following Admin logs at {TIME} from the IP address {IP_ADDRESS}:
+The user "{USERNAME}" recently attempted to delete the following {LOG_MODE} logs on {TIME} from the IP address {IP_ADDRESS}:
 
 {LOGS_SELECTED}
 
