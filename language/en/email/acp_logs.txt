@@ -1,4 +1,4 @@
-Subject: {SITENAME} Admin Log Deletion Attempted
+Subject: {SITENAME} {LOG_MODE} Log Deletion Attempted
 
 The user "{USERNAME}" recently attempted to delete the following Admin logs at {TIME} from the IP address {IP_ADDRESS}:
 

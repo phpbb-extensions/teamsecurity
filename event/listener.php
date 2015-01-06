@@ -117,7 +117,7 @@ class listener implements EventSubscriberInterface
 	}
 
 	/**
-	 * Prevent deletion of Admin logs and notify board security contact
+	 * Prevent deletion of Admin/Moderator/User logs and notify board security contact
 	 *
 	 * @param object $event The event object
 	 * @return null
@@ -125,16 +125,17 @@ class listener implements EventSubscriberInterface
 	 */
 	public function admin_logs_security($event)
 	{
-		if ($event['mode'] == 'admin')
+		if (in_array($event['mode'], array('admin', 'mod', 'user', 'users')))
 		{
 			// Set log_type to false to prevent deletion of logs
 			$event['log_type'] = false;
 
-			// Get information on the user
+			// Get information on the user and their action
 			$user_data = array(
 				'USERNAME'		=> $this->user->data['username'],
 				'IP_ADDRESS'	=> $this->user->ip,
 				'TIME'			=> $this->user->format_date(time(), 'D M d, Y H:i:s A', true),
+				'LOG_MODE'		=> ucfirst($event['mode']),
 			);
 
 			// Send an email to the board security contact identifying the logs
