@@ -12,7 +12,7 @@ namespace phpbb\teamsecurity\acp;
 
 class teamsecurity_info
 {
-	function module()
+	public function module()
 	{
 		return array(
 			'filename'	=> '\phpbb\teamsecurity\acp\teamsecurity_module',
