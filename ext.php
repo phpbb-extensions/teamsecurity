@@ -19,8 +19,9 @@ class ext extends \phpbb\extension\base
 	 * Enable extension if phpBB minimum version requirement is met
 	 *
 	 * @return bool
+	 * @access public
 	 */
-	function is_enableable()
+	public function is_enableable()
 	{
 		$config = $this->container->get('config');
 		return version_compare($config['version'], '3.1.2', '>');
@@ -31,8 +32,9 @@ class ext extends \phpbb\extension\base
 	*
 	* @param mixed $old_state State returned by previous call of this method
 	* @return null
+	* @access public
 	*/
-	function disable_step($old_state)
+	public function disable_step($old_state)
 	{
 		// Use hardcoded language here since the $user is not available
 		trigger_error('Please remove ext.php and try again.', E_USER_WARNING);
