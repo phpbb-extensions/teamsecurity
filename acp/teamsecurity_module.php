@@ -131,7 +131,7 @@ class teamsecurity_module
 			$this->template->assign_block_vars('group_options', array(
 				'VALUE'			=> $row['group_id'],
 				'LABEL'			=> ($row['group_type'] == GROUP_SPECIAL) ? $this->user->lang('G_' . $row['group_name']) : ucfirst(strtolower($row['group_name'])),
-				'S_SELECTED'	=> (in_array($row['group_id'], $selected_id)) ? true : false,
+				'S_SELECTED'	=> in_array($row['group_id'], $selected_id),
 			));
 		}
 		$this->db->sql_freeresult($result);
