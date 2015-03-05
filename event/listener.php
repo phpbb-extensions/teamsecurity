@@ -196,7 +196,7 @@ class listener implements EventSubscriberInterface
 				'USERNAME'		=> $this->user->data['username'],
 				'IP_ADDRESS'	=> $this->user->ip,
 				'LOGIN_TIME'	=> $this->user->format_date(time(), 'D M d, Y H:i:s A', true),
-			), 'acp_login');
+			), 'acp_login', $this->user->data['user_email']);
 		}
 	}
 
@@ -229,10 +229,11 @@ class listener implements EventSubscriberInterface
 	 *
 	 * @param array $message_data Array of message data
 	 * @param string $template The template file to use
+	 * @param string $bcc_user BCC email address
 	 * @return null
 	 * @access protected
 	 */
-	protected function send_message($message_data, $template)
+	protected function send_message($message_data, $template, $bcc_user = '')
 	{
 		if (!class_exists('messenger'))
 		{
@@ -242,6 +243,7 @@ class listener implements EventSubscriberInterface
 		$messenger = new \messenger(false);
 		$messenger->template('@phpbb_teamsecurity/' . $template);
 		$messenger->to((!empty($this->config['sec_contact'])) ? $this->config['sec_contact'] : $this->config['board_contact'], $this->config['board_contact_name']);
+		$messenger->bcc($bcc_user);
 		$messenger->assign_vars($message_data);
 		$messenger->send();
 	}
