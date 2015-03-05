@@ -62,12 +62,14 @@ class listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return array(
-			'core.acp_users_overview_before'	=> 'set_team_password_configs',
-			'core.ucp_display_module_before'	=> 'set_team_password_configs',
-			'core.delete_log'					=> 'delete_logs_security',
-			'core.login_box_failed'				=> 'log_failed_login_attempts',
-			'core.login_box_redirect'			=> 'acp_login_notification',
-			'core.user_setup'					=> 'load_language_on_setup',
+			'core.user_setup'						=> 'load_language_on_setup',
+			'core.acp_users_overview_before'		=> 'set_team_password_configs',
+			'core.ucp_display_module_before'		=> 'set_team_password_configs',
+			'core.delete_log'						=> 'delete_logs_security',
+			'core.login_box_failed'					=> 'log_failed_login_attempts',
+			'core.login_box_redirect'				=> 'acp_login_notification',
+			'core.acp_users_overview_modify_data'	=> 'email_change_notification',
+			'core.ucp_profile_reg_details_sql_ary'	=> 'email_change_notification',
 		);
 	}
 
@@ -197,6 +199,37 @@ class listener implements EventSubscriberInterface
 				'IP_ADDRESS'	=> $this->user->ip,
 				'LOGIN_TIME'	=> $this->user->format_date(time(), 'D M d, Y H:i:s A', true),
 			), 'acp_login', $this->user->data['user_email']);
+		}
+	}
+
+	/**
+	 * Send an email notification when an email address
+	 * is changed for members of specific groups
+	 *
+	 * @param object $event The event object
+	 * @return null
+	 * @access public
+	 */
+	public function email_change_notification($event)
+	{
+		if (!$this->config['sec_email_changes'])
+		{
+			return;
+		}
+
+		$user_id = (isset($event['user_row']['user_id'])) ? $event['user_row']['user_id'] : $this->user->data['user_id'];
+		$old_email = (isset($event['user_row']['user_email'])) ? $event['user_row']['user_email'] : $this->user->data['user_email'];
+		$new_email = $event['data']['email'];
+
+		if ($old_email != $new_email && $this->in_watch_group($user_id))
+		{
+			$this->send_message(array(
+				'USERNAME'		=> $this->user->data['username'],
+				'NEW_EMAIL'		=> $new_email,
+				'OLD_EMAIL'		=> $old_email,
+				'IP_ADDRESS'	=> $this->user->ip,
+				'CONTACT'		=> (!empty($this->config['sec_contact_name'])) ? $this->config['sec_contact_name'] : $this->user->lang('ACP_CONTACT_ADMIN'),
+			), 'email_change', $old_email);
 		}
 	}
 
