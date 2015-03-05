@@ -41,6 +41,5 @@ $lang = array_merge($lang, array(
 	'ACP_MIN_PASS_CHARS'					=> 'Minimum password length',
 	'ACP_MIN_PASS_CHARS_EXPLAIN'			=> 'Minimum password length required for selected groups.',
 	'ACP_GROUPS_EXPLAIN'					=> 'Select the groups the enabled security options will be applied to. Select multiple groups by holding <samp>CTRL</samp> (or <samp>&#8984;CMD</samp> on Mac) and clicking.',
-	'ACP_CONTACT_ADMIN'						=> 'the board administrator or webmaster',
 	'CHARS'									=> 'Characters',
 ));
