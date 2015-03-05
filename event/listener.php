@@ -262,11 +262,11 @@ class listener implements EventSubscriberInterface
 	 *
 	 * @param array $message_data Array of message data
 	 * @param string $template The template file to use
-	 * @param string $bcc_user BCC email address
+	 * @param string $cc_user CC email address
 	 * @return null
 	 * @access protected
 	 */
-	protected function send_message($message_data, $template, $bcc_user = '')
+	protected function send_message($message_data, $template, $cc_user = '')
 	{
 		if (!class_exists('messenger'))
 		{
@@ -276,7 +276,7 @@ class listener implements EventSubscriberInterface
 		$messenger = new \messenger(false);
 		$messenger->template('@phpbb_teamsecurity/' . $template);
 		$messenger->to((!empty($this->config['sec_contact'])) ? $this->config['sec_contact'] : $this->config['board_contact'], $this->config['board_contact_name']);
-		$messenger->bcc($bcc_user);
+		$messenger->cc($cc_user);
 		$messenger->assign_vars($message_data);
 		$messenger->send();
 	}
