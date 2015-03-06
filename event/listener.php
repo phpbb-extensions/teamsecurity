@@ -63,11 +63,19 @@ class listener implements EventSubscriberInterface
 	{
 		return array(
 			'core.user_setup'						=> 'load_language_on_setup',
+
+			// Stronger passwords
 			'core.acp_users_overview_before'		=> 'set_team_password_configs',
 			'core.ucp_display_module_before'		=> 'set_team_password_configs',
+
+			// Logs protection
 			'core.delete_log'						=> 'delete_logs_security',
+
+			// Login detection
 			'core.login_box_failed'					=> 'log_failed_login_attempts',
 			'core.login_box_redirect'				=> 'acp_login_notification',
+
+			// Email changes
 			'core.acp_users_overview_modify_data'	=> 'email_change_notification',
 			'core.ucp_profile_reg_details_sql_ary'	=> 'email_change_notification',
 		);
