@@ -85,8 +85,10 @@ class teamsecurity_module
 			}
 
 			$this->config->set('sec_contact', $sec_contact);
+			$this->config->set('sec_contact_name', $this->request->variable('sec_contact_name', ''));
 			$this->config->set('sec_login_email', $this->request->variable('sec_login_email', 0));
 			$this->config->set('sec_login_attempts', $this->request->variable('sec_login_attempts', 0));
+			$this->config->set('sec_email_changes', $this->request->variable('sec_email_changes', 0));
 			$this->config->set('sec_strong_pass', $this->request->variable('sec_strong_pass', 0));
 			$this->config->set('sec_min_pass_chars', $this->request->variable('sec_min_pass_chars', 0));
 			$this->config->set('sec_usergroups', serialize($this->request->variable('sec_usergroups', array(0))));
@@ -103,7 +105,9 @@ class teamsecurity_module
 		$this->template->assign_vars(array(
 			'S_ACP_LOGIN_EMAIL'		=> $this->config['sec_login_email'],
 			'ACP_CONTACT_EMAIL'		=> $this->config['sec_contact'],
+			'ACP_CONTACT_NAME'		=> $this->config['sec_contact_name'],
 			'S_ACP_LOGIN_ATTEMPTS'	=> $this->config['sec_login_attempts'],
+			'S_ACP_EMAIL_CHANGES'	=> $this->config['sec_email_changes'],
 			'S_ACP_STRONG_PASS'		=> $this->config['sec_strong_pass'],
 			'ACP_MIN_PASS_CHARS'	=> $this->config['sec_min_pass_chars'],
 			'U_ACTION'				=> $this->u_action,

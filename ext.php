@@ -37,6 +37,6 @@ class ext extends \phpbb\extension\base
 	public function disable_step($old_state)
 	{
 		// Use hardcoded language here since the $user is not available
-		trigger_error('Please remove ext.php and try again.', E_USER_WARNING);
+		trigger_error('Please remove ext.php from the filesystem, purge the board cache, and try again.', E_USER_WARNING);
 	}
 }

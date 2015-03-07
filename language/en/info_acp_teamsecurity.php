@@ -33,4 +33,7 @@ $lang = array_merge($lang, array(
 	// ACP Log notifications
 	'LOG_DELETE_ALL'				=> 'All logs',
 	'LOG_DELETE_MARKED'				=> 'Logs by ID: %1$s',
+
+	// EMAIL
+	'ACP_CONTACT_ADMIN'				=> 'the board administrator or webmaster',
 ));

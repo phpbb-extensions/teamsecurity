@@ -62,12 +62,22 @@ class listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return array(
-			'core.acp_users_overview_before'	=> 'set_team_password_configs',
-			'core.ucp_display_module_before'	=> 'set_team_password_configs',
-			'core.delete_log'					=> 'delete_logs_security',
-			'core.login_box_failed'				=> 'log_failed_login_attempts',
-			'core.login_box_redirect'			=> 'acp_login_notification',
-			'core.user_setup'					=> 'load_language_on_setup',
+			'core.user_setup'						=> 'load_language_on_setup',
+
+			// Stronger passwords
+			'core.acp_users_overview_before'		=> 'set_team_password_configs',
+			'core.ucp_display_module_before'		=> 'set_team_password_configs',
+
+			// Logs protection
+			'core.delete_log'						=> 'delete_logs_security',
+
+			// Login detection
+			'core.login_box_failed'					=> 'log_failed_login_attempts',
+			'core.login_box_redirect'				=> 'acp_login_notification',
+
+			// Email changes
+			'core.acp_users_overview_modify_data'	=> 'email_change_notification',
+			'core.ucp_profile_reg_details_sql_ary'	=> 'email_change_notification',
 		);
 	}
 
@@ -196,7 +206,38 @@ class listener implements EventSubscriberInterface
 				'USERNAME'		=> $this->user->data['username'],
 				'IP_ADDRESS'	=> $this->user->ip,
 				'LOGIN_TIME'	=> $this->user->format_date(time(), 'D M d, Y H:i:s A', true),
-			), 'acp_login');
+			), 'acp_login', $this->user->data['user_email']);
+		}
+	}
+
+	/**
+	 * Send an email notification when an email address
+	 * is changed for members of specific groups
+	 *
+	 * @param object $event The event object
+	 * @return null
+	 * @access public
+	 */
+	public function email_change_notification($event)
+	{
+		if (!$this->config['sec_email_changes'])
+		{
+			return;
+		}
+
+		$user_id = (isset($event['user_row']['user_id'])) ? $event['user_row']['user_id'] : $this->user->data['user_id'];
+		$old_email = (isset($event['user_row']['user_email'])) ? $event['user_row']['user_email'] : $this->user->data['user_email'];
+		$new_email = $event['data']['email'];
+
+		if ($old_email != $new_email && $this->in_watch_group($user_id))
+		{
+			$this->send_message(array(
+				'USERNAME'		=> $this->user->data['username'],
+				'NEW_EMAIL'		=> $new_email,
+				'OLD_EMAIL'		=> $old_email,
+				'IP_ADDRESS'	=> $this->user->ip,
+				'CONTACT'		=> (!empty($this->config['sec_contact_name'])) ? $this->config['sec_contact_name'] : $this->user->lang('ACP_CONTACT_ADMIN'),
+			), 'email_change', $old_email);
 		}
 	}
 
@@ -229,10 +270,11 @@ class listener implements EventSubscriberInterface
 	 *
 	 * @param array $message_data Array of message data
 	 * @param string $template The template file to use
+	 * @param string $cc_user CC email address
 	 * @return null
 	 * @access protected
 	 */
-	protected function send_message($message_data, $template)
+	protected function send_message($message_data, $template, $cc_user = '')
 	{
 		if (!class_exists('messenger'))
 		{
@@ -242,6 +284,7 @@ class listener implements EventSubscriberInterface
 		$messenger = new \messenger(false);
 		$messenger->template('@phpbb_teamsecurity/' . $template);
 		$messenger->to((!empty($this->config['sec_contact'])) ? $this->config['sec_contact'] : $this->config['board_contact'], $this->config['board_contact_name']);
+		$messenger->cc($cc_user);
 		$messenger->assign_vars($message_data);
 		$messenger->send();
 	}
