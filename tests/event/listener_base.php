@@ -54,12 +54,15 @@ class listener_base extends \phpbb_test_case
 	 */
 	protected function set_listener()
 	{
-		$this->listener = $this->getMock('\phpbb\teamsecurity\event\listener', array('in_watch_group', 'send_message'), array(
+		$this->listener = $this->getMock('\phpbb\teamsecurity\event\listener',
+			array('in_watch_group', 'send_message'),
+			array(
 				$this->config,
 				$this->log,
 				$this->user,
 				$this->root_path,
-				$this->php_ext)
+				$this->php_ext
+			)
 		);
 	}
 }
