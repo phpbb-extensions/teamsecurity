@@ -85,7 +85,7 @@ class teamsecurity_module
 			}
 
 			$this->config->set('sec_contact', $sec_contact);
-			$this->config->set('sec_contact_name', $this->request->variable('sec_contact_name', ''));
+			$this->config->set('sec_contact_name', $this->request->variable('sec_contact_name', '', true));
 			$this->config->set('sec_login_email', $this->request->variable('sec_login_email', 0));
 			$this->config->set('sec_login_attempts', $this->request->variable('sec_login_attempts', 0));
 			$this->config->set('sec_email_changes', $this->request->variable('sec_email_changes', 0));
