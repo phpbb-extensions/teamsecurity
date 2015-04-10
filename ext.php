@@ -16,7 +16,11 @@ namespace phpbb\teamsecurity;
 class ext extends \phpbb\extension\base
 {
 	/**
-	 * Enable extension if phpBB minimum version requirement is met
+	 * Check whether or not the extension can be enabled.
+	 * The current phpBB version should meet or exceed
+	 * the minimum version required by this extension:
+	 *
+	 * Requires phpBB 3.1.3 due to newly added core events.
 	 *
 	 * @return bool
 	 * @access public
@@ -24,7 +28,7 @@ class ext extends \phpbb\extension\base
 	public function is_enableable()
 	{
 		$config = $this->container->get('config');
-		return version_compare($config['version'], '3.1.2', '>');
+		return phpbb_version_compare($config['version'], '3.1.3', '>=');
 	}
 
 	/**
