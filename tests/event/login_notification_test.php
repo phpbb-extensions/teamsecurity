@@ -52,7 +52,7 @@ class login_notification_test extends listener_base
 		$this->set_listener();
 
 		// Set the LOGIN_TIME now, since we can't set it during the data array setup
-		$expected['LOGIN_TIME'] = $this->user->format_date(time(), 'D M d, Y H:i:s A', true);
+		$expected['LOGIN_TIME'] = $this->user->format_date(time(), $this->config['default_dateformat'], true);
 
 		// Check send_message once if enabled and admin are true,
 		// otherwise check that it is never called.

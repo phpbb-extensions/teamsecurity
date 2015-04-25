@@ -40,7 +40,7 @@ class listener_base extends \phpbb_test_case
 		global $phpbb_root_path, $phpEx;
 
 		// Load/Mock classes required by the event listener class
-		$this->config = new \phpbb\config\config(array());
+		$this->config = new \phpbb\config\config(array('default_dateformat' => 'D M d, Y H:i:s A'));
 		$this->log = $this->getMockBuilder('\phpbb\log\log')
 			->disableOriginalConstructor()
 			->getMock();
