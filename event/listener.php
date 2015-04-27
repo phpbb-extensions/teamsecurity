@@ -144,7 +144,7 @@ class listener implements EventSubscriberInterface
 			$user_data = array(
 				'USERNAME'		=> $this->user->data['username'],
 				'IP_ADDRESS'	=> $this->user->ip,
-				'TIME'			=> $this->user->format_date(time(), 'D M d, Y H:i:s A', true),
+				'TIME'			=> $this->user->format_date(time(), $this->config['default_dateformat'], true),
 				'LOG_MODE'		=> $event['mode'],
 			);
 
@@ -205,7 +205,7 @@ class listener implements EventSubscriberInterface
 			$this->send_message(array(
 				'USERNAME'		=> $this->user->data['username'],
 				'IP_ADDRESS'	=> $this->user->ip,
-				'LOGIN_TIME'	=> $this->user->format_date(time(), 'D M d, Y H:i:s A', true),
+				'LOGIN_TIME'	=> $this->user->format_date(time(), $this->config['default_dateformat'], true),
 			), 'acp_login', $this->user->data['user_email']);
 		}
 	}
