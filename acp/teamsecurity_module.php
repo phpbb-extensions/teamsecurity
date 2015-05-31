@@ -91,14 +91,14 @@ class teamsecurity_module
 			$this->config->set('sec_email_changes', $this->request->variable('sec_email_changes', 0));
 			$this->config->set('sec_strong_pass', $this->request->variable('sec_strong_pass', 0));
 			$this->config->set('sec_min_pass_chars', $this->request->variable('sec_min_pass_chars', 0));
-			$this->config->set('sec_usergroups', serialize($this->request->variable('sec_usergroups', array(0))));
+			$this->config->set('sec_usergroups', json_encode($this->request->variable('sec_usergroups', array(0))));
 
 			$this->log->add('admin', $this->user->data['user_id'], $this->user->ip, 'LOG_TEAM_SEC_UPDATED');
 			trigger_error($this->user->lang('CONFIG_UPDATED') . adm_back_link($this->u_action));
 		}
 
 		// Set template vars for usergroups multi-select box
-		$group_id_ary = (!$this->config['sec_usergroups']) ? array() : unserialize(trim($this->config['sec_usergroups']));
+		$group_id_ary = (!$this->config['sec_usergroups']) ? array() : json_decode(trim($this->config['sec_usergroups']), true);
 		$this->get_group_options($group_id_ary);
 
 		// Set output vars for display in the template
