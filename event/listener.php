@@ -250,7 +250,7 @@ class listener implements EventSubscriberInterface
 	 */
 	protected function in_watch_group($user_id)
 	{
-		$group_id_ary = (!$this->config['sec_usergroups']) ? array() : unserialize(trim($this->config['sec_usergroups']));
+		$group_id_ary = (!$this->config['sec_usergroups']) ? array() : json_decode(trim($this->config['sec_usergroups']), true);
 
 		if (empty($group_id_ary))
 		{
