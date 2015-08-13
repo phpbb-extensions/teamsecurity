@@ -12,13 +12,13 @@ namespace phpbb\teamsecurity\tests\event;
 
 class listener_base extends \phpbb_test_case
 {
-	/** @var \PHPUnit_Framework_MockObject_MockObject */
+	/** @var \PHPUnit_Framework_MockObject_MockObject|\phpbb\teamsecurity\event\listener */
 	protected $listener;
 
 	/** @var \phpbb\config\config */
 	protected $config;
 
-	/** @var \PHPUnit_Framework_MockObject_MockObject */
+	/** @var \PHPUnit_Framework_MockObject_MockObject|\phpbb\log\log */
 	protected $log;
 
 	/** @var \phpbb\user */
