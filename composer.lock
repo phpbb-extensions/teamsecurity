@@ -1,9 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "eedfc5729241324d249049bff7160af3",
+    "hash": "e610685cb17c5997b0e19f04d04f6a76",
     "packages": [
         {
             "name": "composer/installers",
@@ -208,7 +209,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpbb/epv/zipball/75df9936ffbb8f05a1351cf622cf6f41c7d2d9f2",
+                "url": "https://api.github.com/repos/phpbb/epv/zipball/a054539914b0dd2c625c4694059730c517e59623",
                 "reference": "75df9936ffbb8f05a1351cf622cf6f41c7d2d9f2",
                 "shasum": ""
             },
@@ -495,6 +496,8 @@
     "stability-flags": {
         "phpbb/epv": 20
     },
+    "prefer-stable": false,
+    "prefer-lowest": false,
     "platform": {
         "php": ">=5.3.3"
     },
