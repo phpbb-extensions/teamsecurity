@@ -116,7 +116,7 @@ class listener implements EventSubscriberInterface
 		if ($event['mode'] == 'reg_details' || $event['mode'] == 'overview')
 		{
 			// The user the new password settings apply to
-			$user_id = (isset($event['user_row']['user_id'])) ? $event['user_row']['user_id'] : $this->user->data['user_id'];
+			$user_id = $this->isset_or_default($event['user_row']['user_id'], $this->user->data['user_id']);
 
 			if ($this->in_watch_group($user_id))
 			{
@@ -225,8 +225,8 @@ class listener implements EventSubscriberInterface
 			return;
 		}
 
-		$user_id = (isset($event['user_row']['user_id'])) ? $event['user_row']['user_id'] : $this->user->data['user_id'];
-		$old_email = (isset($event['user_row']['user_email'])) ? $event['user_row']['user_email'] : $this->user->data['user_email'];
+		$user_id = $this->isset_or_default($event['user_row']['user_id'], $this->user->data['user_id']);
+		$old_email = $this->isset_or_default($event['user_row']['user_email'], $this->user->data['user_email']);
 		$new_email = $event['data']['email'];
 
 		if ($old_email != $new_email && $this->in_watch_group($user_id))
@@ -287,5 +287,17 @@ class listener implements EventSubscriberInterface
 		$messenger->cc($cc_user);
 		$messenger->assign_vars($message_data);
 		$messenger->send();
+	}
+
+	/**
+	 * Get an item if it's set, otherwise get default
+	 *
+	 * @param mixed $item    An item to check if set and get
+	 * @param mixed $default A default value to fallback to
+	 * @return mixed The value of the item, or default
+	 */
+	protected function isset_or_default($item, $default)
+	{
+		return (isset($item)) ? $item : $default;
 	}
 }
