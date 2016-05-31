@@ -30,7 +30,7 @@ class listener implements EventSubscriberInterface
 	protected $phpbb_root_path;
 
 	/** @var string phpEx */
-	protected $phpEx;
+	protected $php_ext;
 
 	/**
 	 * Constructor
