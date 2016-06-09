@@ -44,7 +44,6 @@ class teamsecurity_module
 		$this->template = $template;
 		$this->user = $user;
 
-		$this->user->add_lang('acp/common');
 		$this->user->add_lang_ext('phpbb/teamsecurity', 'acp_teamsecurity');
 	}
 
