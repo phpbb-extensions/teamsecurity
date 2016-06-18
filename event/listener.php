@@ -84,7 +84,7 @@ class listener implements EventSubscriberInterface
 	/**
 	 * Load common language files during user setup
 	 *
-	 * @param object $event The event object
+	 * @param \phpbb\event\data $event The event object
 	 * @return null
 	 * @access public
 	 */
@@ -101,7 +101,7 @@ class listener implements EventSubscriberInterface
 	/**
 	 * Set stronger password requirements for members of specific groups
 	 *
-	 * @param object $event The event object
+	 * @param \phpbb\event\data $event The event object
 	 * @return null
 	 * @access public
 	 */
@@ -129,7 +129,7 @@ class listener implements EventSubscriberInterface
 	/**
 	 * Prevent deletion of Admin/Moderator/User logs and notify board security contact
 	 *
-	 * @param object $event The event object
+	 * @param \phpbb\event\data $event The event object
 	 * @return null
 	 * @access public
 	 */
@@ -169,7 +169,7 @@ class listener implements EventSubscriberInterface
 	/**
 	 * Log failed login attempts for members of specific groups
 	 *
-	 * @param object $event The event object
+	 * @param \phpbb\event\data $event The event object
 	 * @return null
 	 * @access public
 	 */
@@ -189,7 +189,7 @@ class listener implements EventSubscriberInterface
 	/**
 	 * Send an email notification when a user logs into the ACP
 	 *
-	 * @param object $event The event object
+	 * @param \phpbb\event\data $event The event object
 	 * @return null
 	 * @access public
 	 */
@@ -214,7 +214,7 @@ class listener implements EventSubscriberInterface
 	 * Send an email notification when an email address
 	 * is changed for members of specific groups
 	 *
-	 * @param object $event The event object
+	 * @param \phpbb\event\data $event The event object
 	 * @return null
 	 * @access public
 	 */
