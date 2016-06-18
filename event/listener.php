@@ -113,7 +113,7 @@ class listener implements EventSubscriberInterface
 		}
 
 		// reg_details = UCP Account Settings // overview = ACP User Overview
-		if ($event['mode'] == 'reg_details' || $event['mode'] == 'overview')
+		if ($event['mode'] === 'reg_details' || $event['mode'] === 'overview')
 		{
 			// The user the new password settings apply to
 			$user_id = (isset($event['user_row']['user_id'])) ? $event['user_row']['user_id'] : $this->user->data['user_id'];
