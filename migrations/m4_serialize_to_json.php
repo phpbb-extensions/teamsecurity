@@ -35,6 +35,6 @@ class m4_serialize_to_json extends \phpbb\db\migration\migration
 	{
 		$data = unserialize(trim($this->config[$cfg]));
 
-		return ($data) ? json_encode($data) : '';
+		return $data ? json_encode($data) : '';
 	}
 }

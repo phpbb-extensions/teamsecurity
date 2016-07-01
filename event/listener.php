@@ -84,7 +84,7 @@ class listener implements EventSubscriberInterface
 	/**
 	 * Load common language files during user setup
 	 *
-	 * @param object $event The event object
+	 * @param \phpbb\event\data $event The event object
 	 * @return null
 	 * @access public
 	 */
@@ -101,7 +101,7 @@ class listener implements EventSubscriberInterface
 	/**
 	 * Set stronger password requirements for members of specific groups
 	 *
-	 * @param object $event The event object
+	 * @param \phpbb\event\data $event The event object
 	 * @return null
 	 * @access public
 	 */
@@ -113,10 +113,10 @@ class listener implements EventSubscriberInterface
 		}
 
 		// reg_details = UCP Account Settings // overview = ACP User Overview
-		if ($event['mode'] == 'reg_details' || $event['mode'] == 'overview')
+		if ($event['mode'] === 'reg_details' || $event['mode'] === 'overview')
 		{
 			// The user the new password settings apply to
-			$user_id = (isset($event['user_row']['user_id'])) ? $event['user_row']['user_id'] : $this->user->data['user_id'];
+			$user_id = isset($event['user_row']['user_id']) ? $event['user_row']['user_id'] : $this->user->data['user_id'];
 
 			if ($this->in_watch_group($user_id))
 			{
@@ -129,7 +129,7 @@ class listener implements EventSubscriberInterface
 	/**
 	 * Prevent deletion of Admin/Moderator/User logs and notify board security contact
 	 *
-	 * @param object $event The event object
+	 * @param \phpbb\event\data $event The event object
 	 * @return null
 	 * @access public
 	 */
@@ -169,7 +169,7 @@ class listener implements EventSubscriberInterface
 	/**
 	 * Log failed login attempts for members of specific groups
 	 *
-	 * @param object $event The event object
+	 * @param \phpbb\event\data $event The event object
 	 * @return null
 	 * @access public
 	 */
@@ -189,7 +189,7 @@ class listener implements EventSubscriberInterface
 	/**
 	 * Send an email notification when a user logs into the ACP
 	 *
-	 * @param object $event The event object
+	 * @param \phpbb\event\data $event The event object
 	 * @return null
 	 * @access public
 	 */
@@ -214,7 +214,7 @@ class listener implements EventSubscriberInterface
 	 * Send an email notification when an email address
 	 * is changed for members of specific groups
 	 *
-	 * @param object $event The event object
+	 * @param \phpbb\event\data $event The event object
 	 * @return null
 	 * @access public
 	 */
@@ -225,8 +225,8 @@ class listener implements EventSubscriberInterface
 			return;
 		}
 
-		$user_id = (isset($event['user_row']['user_id'])) ? $event['user_row']['user_id'] : $this->user->data['user_id'];
-		$old_email = (isset($event['user_row']['user_email'])) ? $event['user_row']['user_email'] : $this->user->data['user_email'];
+		$user_id = isset($event['user_row']['user_id']) ? $event['user_row']['user_id'] : $this->user->data['user_id'];
+		$old_email = isset($event['user_row']['user_email']) ? $event['user_row']['user_email'] : $this->user->data['user_email'];
 		$new_email = $event['data']['email'];
 
 		if ($old_email != $new_email && $this->in_watch_group($user_id))

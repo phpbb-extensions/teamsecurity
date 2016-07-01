@@ -50,12 +50,10 @@ class teamsecurity_module
 	/**
 	 * Main ACP module
 	 *
-	 * @param int $id
-	 * @param string $mode
 	 * @return null
 	 * @access public
 	 */
-	public function main($id, $mode)
+	public function main()
 	{
 		$this->tpl_name = 'acp_teamsecurity';
 		$this->page_title = $this->user->lang('ACP_TEAM_SECURITY_SETTINGS');
