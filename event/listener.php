@@ -258,7 +258,7 @@ class listener implements EventSubscriberInterface
 
 		if (!function_exists('group_memberships'))
 		{
-			include($this->phpbb_root_path . 'includes/functions_user.' . $this->php_ext);
+			include $this->phpbb_root_path . 'includes/functions_user.' . $this->php_ext;
 		}
 
 		return group_memberships($group_id_ary, $user_id, true);
@@ -277,7 +277,7 @@ class listener implements EventSubscriberInterface
 	{
 		if (!class_exists('messenger'))
 		{
-			include($this->phpbb_root_path . 'includes/functions_messenger.' . $this->php_ext);
+			include $this->phpbb_root_path . 'includes/functions_messenger.' . $this->php_ext;
 		}
 
 		$messenger = new \messenger(false);
