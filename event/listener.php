@@ -40,7 +40,6 @@ class listener implements EventSubscriberInterface
 	 * @param \phpbb\user $user User object
 	 * @param string $phpbb_root_path phpBB root path
 	 * @param string $phpEx phpEx
-	 * @return \phpbb\teamsecurity\event\listener
 	 * @access public
 	 */
 	public function __construct(\phpbb\config\config $config, \phpbb\log\log $log, \phpbb\user $user, $phpbb_root_path, $phpEx)
@@ -85,7 +84,7 @@ class listener implements EventSubscriberInterface
 	 * Load common language files during user setup
 	 *
 	 * @param \phpbb\event\data $event The event object
-	 * @return null
+	 * @return void
 	 * @access public
 	 */
 	public function load_language_on_setup($event)
@@ -102,7 +101,7 @@ class listener implements EventSubscriberInterface
 	 * Set stronger password requirements for members of specific groups
 	 *
 	 * @param \phpbb\event\data $event The event object
-	 * @return null
+	 * @return void
 	 * @access public
 	 */
 	public function set_team_password_configs($event)
@@ -130,7 +129,7 @@ class listener implements EventSubscriberInterface
 	 * Prevent deletion of Admin/Moderator/User logs and notify board security contact
 	 *
 	 * @param \phpbb\event\data $event The event object
-	 * @return null
+	 * @return void
 	 * @access public
 	 */
 	public function delete_logs_security($event)
@@ -170,7 +169,7 @@ class listener implements EventSubscriberInterface
 	 * Log failed login attempts for members of specific groups
 	 *
 	 * @param \phpbb\event\data $event The event object
-	 * @return null
+	 * @return void
 	 * @access public
 	 */
 	public function log_failed_login_attempts($event)
@@ -190,7 +189,7 @@ class listener implements EventSubscriberInterface
 	 * Send an email notification when a user logs into the ACP
 	 *
 	 * @param \phpbb\event\data $event The event object
-	 * @return null
+	 * @return void
 	 * @access public
 	 */
 	public function acp_login_notification($event)
@@ -215,7 +214,7 @@ class listener implements EventSubscriberInterface
 	 * is changed for members of specific groups
 	 *
 	 * @param \phpbb\event\data $event The event object
-	 * @return null
+	 * @return void
 	 * @access public
 	 */
 	public function email_change_notification($event)
@@ -271,7 +270,7 @@ class listener implements EventSubscriberInterface
 	 * @param array $message_data Array of message data
 	 * @param string $template The template file to use
 	 * @param string $cc_user CC email address
-	 * @return null
+	 * @return void
 	 * @access protected
 	 */
 	protected function send_message($message_data, $template, $cc_user = '')

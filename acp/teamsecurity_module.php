@@ -50,7 +50,7 @@ class teamsecurity_module
 	/**
 	 * Main ACP module
 	 *
-	 * @return null
+	 * @return void
 	 * @access public
 	 */
 	public function main()
@@ -115,7 +115,7 @@ class teamsecurity_module
 	 * Get group options for multi-select box
 	 *
 	 * @param array $selected_id Currently selected group identifiers
-	 * @return null
+	 * @return void
 	 * @access protected
 	 */
 	protected function get_group_options($selected_id)

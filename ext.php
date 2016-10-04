@@ -35,7 +35,7 @@ class ext extends \phpbb\extension\base
 	* Error and prevent attempts to disable this extension
 	*
 	* @param mixed $old_state State returned by previous call of this method
-	* @return null
+	* @return void
 	* @access public
 	*/
 	public function disable_step($old_state)
