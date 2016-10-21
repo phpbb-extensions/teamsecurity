@@ -17,6 +17,11 @@ class m2_email_config extends \phpbb\db\migration\migration
 		return array('phpbb\teamsecurity\migrations\m1_initial');
 	}
 
+	public function effectively_installed()
+	{
+		return $this->config->offsetExists('sec_contact');
+	}
+
 	public function update_data()
 	{
 		return array(
