@@ -17,6 +17,19 @@ class m1_initial extends \phpbb\db\migration\migration
 		return array('\phpbb\db\migration\data\v31x\v313');
 	}
 
+	public function effectively_installed()
+	{
+		$sql = 'SELECT module_id
+			FROM ' . $this->table_prefix . "modules
+			WHERE module_class = 'acp'
+				AND module_langname = 'ACP_TEAM_SECURITY'";
+		$result = $this->db->sql_query($sql);
+		$module_id = $this->db->sql_fetchfield('module_id');
+		$this->db->sql_freeresult($result);
+
+		return $module_id !== false;
+	}
+
 	public function update_data()
 	{
 		return array(
