@@ -14,7 +14,7 @@ class m2_email_config extends \phpbb\db\migration\migration
 {
 	static public function depends_on()
 	{
-		return array('phpbb\teamsecurity\migrations\m1_initial');
+		return array('\phpbb\teamsecurity\migrations\m1_initial');
 	}
 
 	public function effectively_installed()

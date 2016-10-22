@@ -14,7 +14,7 @@ class m4_serialize_to_json extends \phpbb\db\migration\migration
 {
 	static public function depends_on()
 	{
-		return array('phpbb\teamsecurity\migrations\m1_initial');
+		return array('\phpbb\teamsecurity\migrations\m1_initial');
 	}
 
 	public function update_data()
