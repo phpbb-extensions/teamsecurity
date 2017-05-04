@@ -2,7 +2,7 @@
 
 This is the repository for the development of the Team Security extension for phpBB.
 
-[![Build Status](https://travis-ci.org/phpbb-extensions/teamsecurity.png)](https://travis-ci.org/phpbb-extensions/teamsecurity)
+[![Build Status](https://travis-ci.org/phpbb-extensions/teamsecurity.svg)](https://travis-ci.org/phpbb-extensions/teamsecurity)
 
 This extension adds passive security features to phpBB that allow the board's founder to watch for potential attacks against members of privileged groups, such as Administrators and Moderators.
 
