@@ -37,7 +37,7 @@ class listener_base extends \phpbb_test_case
 	{
 		parent::setUp();
 
-		global $phpbb_root_path, $phpEx;
+		global $phpbb_dispatcher, $phpbb_root_path, $phpEx;
 
 		// Load/Mock classes required by the event listener class
 		$this->config = new \phpbb\config\config(array('default_dateformat' => 'D M d, Y H:i:s A'));
@@ -49,6 +49,7 @@ class listener_base extends \phpbb_test_case
 		$this->user = new \phpbb\user($lang, '\phpbb\datetime');
 		$this->root_path = $phpbb_root_path;
 		$this->php_ext = $phpEx;
+		$phpbb_dispatcher = new \phpbb_mock_event_dispatcher();
 	}
 
 	/**
