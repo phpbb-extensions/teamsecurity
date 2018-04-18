@@ -18,6 +18,9 @@ class teamsecurity_module
 	/** @var \phpbb\db\driver\driver_interface */
 	protected $db;
 
+	/** @var \phpbb\group\helper */
+	protected $group_helper;
+
 	/** @var \phpbb\language\language */
 	protected $language;
 
@@ -42,6 +45,7 @@ class teamsecurity_module
 
 		$this->config = $phpbb_container->get('config');
 		$this->db = $phpbb_container->get('dbal.conn');
+		$this->group_helper = $phpbb_container->get('group_helper');
 		$this->language = $phpbb_container->get('language');
 		$this->log = $phpbb_container->get('log');
 		$this->request = $phpbb_container->get('request');
@@ -135,7 +139,7 @@ class teamsecurity_module
 		{
 			$this->template->assign_block_vars('group_options', array(
 				'VALUE'			=> $row['group_id'],
-				'LABEL'			=> ($row['group_type'] == GROUP_SPECIAL) ? $this->user->lang('G_' . $row['group_name']) : $row['group_name'],
+				'LABEL'			=> $this->group_helper->get_name($row['group_name']),
 				'S_SELECTED'	=> in_array($row['group_id'], $selected_id),
 			));
 		}
