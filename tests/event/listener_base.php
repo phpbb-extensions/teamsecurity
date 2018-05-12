@@ -67,6 +67,7 @@ class listener_base extends \phpbb_test_case
 			))
 			->setConstructorArgs(array(
 				$this->config,
+				$this->lang,
 				$this->log,
 				$this->user,
 				$this->root_path,
