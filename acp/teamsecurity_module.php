@@ -45,6 +45,11 @@ class teamsecurity_module
 	/** @var string */
 	public $u_action;
 
+	/**
+	 * Constructor
+	 *
+	 * @throws \Exception
+	 */
 	public function __construct()
 	{
 		global $phpbb_container;
