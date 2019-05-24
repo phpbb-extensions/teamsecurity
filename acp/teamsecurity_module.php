@@ -37,8 +37,19 @@ class teamsecurity_module
 	protected $user;
 
 	/** @var string */
+	public $page_title;
+
+	/** @var string */
+	public $tpl_name;
+
+	/** @var string */
 	public $u_action;
 
+	/**
+	 * Constructor
+	 *
+	 * @throws \Exception
+	 */
 	public function __construct()
 	{
 		global $phpbb_container;
