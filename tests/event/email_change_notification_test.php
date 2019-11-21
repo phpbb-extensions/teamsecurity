@@ -153,10 +153,9 @@ class email_change_notification_test extends listener_base
 
 		$this->set_listener();
 
-		$this->listener->expects($this->any())
+		$this->listener->expects($this->atMost(1))
 			->method('in_watch_group')
-			->will($this->returnValue($in_watch_group)
-		);
+			->willReturn($in_watch_group);
 
 		// Check send_message once if conditions are true,
 		// otherwise check that it is never called.
