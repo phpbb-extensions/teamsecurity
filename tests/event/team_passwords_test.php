@@ -51,10 +51,9 @@ class team_passwords_test extends listener_base
 
 		$this->set_listener();
 
-		$this->listener->expects($this->any())
+		$this->listener->expects($this->atMost(1))
 			->method('in_watch_group')
-			->will($this->returnValue($in_watch_group)
-		);
+			->willReturn($in_watch_group);
 
 		$dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
 		$dispatcher->addListener($listener, array($this->listener, 'set_team_password_configs'));

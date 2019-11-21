@@ -40,10 +40,9 @@ class failed_logins_test extends listener_base
 
 		$this->set_listener();
 
-		$this->listener->expects($this->any())
+		$this->listener->expects($this->atMost(1))
 			->method('in_watch_group')
-			->will($this->returnValue($in_watch_group)
-		);
+			->willReturn($in_watch_group);
 
 		// Check log->add is called once with expected data if enabled and in_watch_group are true,
 		// otherwise check that it is never called.
