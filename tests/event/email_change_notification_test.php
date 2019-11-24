@@ -33,6 +33,7 @@ class email_change_notification_test extends listener_base
 					'NEW_EMAIL'		=> 'new@mail.tld',
 					'OLD_EMAIL'		=> 'old@mail.tld',
 					'IP_ADDRESS'	=> '1:1:1',
+					'HOST_NAME'		=> false,
 					'CONTACT'		=> 'admin@mail.tld',
 				)
 			),
@@ -89,6 +90,7 @@ class email_change_notification_test extends listener_base
 					'NEW_EMAIL'		=> 'new@mail.tld',
 					'OLD_EMAIL'		=> 'old@mail.tld',
 					'IP_ADDRESS'	=> '1:1:1',
+					'HOST_NAME'		=> false,
 					'CONTACT'		=> 'admin@mail.tld',
 				)
 			),
