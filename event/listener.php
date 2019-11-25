@@ -148,6 +148,7 @@ class listener implements EventSubscriberInterface
 			$user_data = array(
 				'USERNAME'		=> $this->user->data['username'],
 				'IP_ADDRESS'	=> $this->user->ip,
+				'HOST_NAME'		=> @gethostbyaddr($this->user->ip),
 				'TIME'			=> $this->user->format_date(time(), $this->config['default_dateformat'], true),
 				'LOG_MODE'		=> $event['mode'],
 			);
@@ -209,6 +210,7 @@ class listener implements EventSubscriberInterface
 			$this->send_message(array(
 				'USERNAME'		=> $this->user->data['username'],
 				'IP_ADDRESS'	=> $this->user->ip,
+				'HOST_NAME'		=> @gethostbyaddr($this->user->ip),
 				'LOGIN_TIME'	=> $this->user->format_date(time(), $this->config['default_dateformat'], true),
 			), 'acp_login', $this->user->data['user_email']);
 		}
@@ -240,6 +242,7 @@ class listener implements EventSubscriberInterface
 				'NEW_EMAIL'		=> $new_email,
 				'OLD_EMAIL'		=> $old_email,
 				'IP_ADDRESS'	=> $this->user->ip,
+				'HOST_NAME'		=> @gethostbyaddr($this->user->ip),
 				'CONTACT'		=> !empty($this->config['sec_contact_name']) ? $this->config['sec_contact_name'] : $this->language->lang('ACP_CONTACT_ADMIN'),
 			), 'email_change', $old_email);
 		}

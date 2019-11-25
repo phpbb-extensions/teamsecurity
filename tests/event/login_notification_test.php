@@ -23,6 +23,7 @@ class login_notification_test extends listener_base
 			array(true, true, 'foo', '1:1:1', array(
 				'USERNAME' => 'foo',
 				'IP_ADDRESS' => '1:1:1',
+				'HOST_NAME' => false,
 				'LOGIN_TIME' => '',
 			)),
 			array(true, false, null, null, array()),
