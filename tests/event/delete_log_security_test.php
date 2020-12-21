@@ -51,6 +51,6 @@ class delete_log_security_test extends listener_base
 
 		$new_events = $event->get_data_filtered($event_data);
 
-		$this->assertSame($expected_log_type, $new_events['log_type']);
+		self::assertSame($expected_log_type, $new_events['log_type']);
 	}
 }

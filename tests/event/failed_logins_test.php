@@ -40,13 +40,13 @@ class failed_logins_test extends listener_base
 
 		$this->set_listener();
 
-		$this->listener->expects($this->atMost(1))
+		$this->listener->expects(self::atMost(1))
 			->method('in_watch_group')
 			->willReturn($in_watch_group);
 
 		// Check log->add is called once with expected data if enabled and in_watch_group are true,
 		// otherwise check that it is never called.
-		$this->log->expects(($enabled && $in_watch_group) ? $this->once() : $this->never())
+		$this->log->expects(($enabled && $in_watch_group) ? self::once() : self::never())
 			->method('add')
 			->with('user', $result['user_row']['user_id'], $this->user->ip, 'LOG_TEAM_AUTH_FAIL', time(), array('reportee_id' => $result['user_row']['user_id']));
 
