@@ -21,9 +21,9 @@ class failed_logins_test extends listener_base
 	{
 		return array(
 			array(true, true, array('user_row' => array('user_id' => 2))),
-			array(false, true, array()),
-			array(true, false, array()),
-			array(false, false, array()),
+			array(false, true, array('user_row' => array('user_id' => 0))),
+			array(true, false, array('user_row' => array('user_id' => 0))),
+			array(false, false, array('user_row' => array('user_id' => 0))),
 		);
 	}
 
