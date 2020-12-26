@@ -57,7 +57,7 @@ class login_notification_test extends listener_base
 
 		// Check send_message once if enabled and admin are true,
 		// otherwise check that it is never called.
-		$this->listener->expects(($enabled && $admin) ? $this->once() : $this->never())
+		$this->listener->expects(($enabled && $admin) ? self::once() : self::never())
 			->method('send_message')
 			->with($expected);
 

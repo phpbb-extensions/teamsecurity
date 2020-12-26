@@ -51,7 +51,7 @@ class team_passwords_test extends listener_base
 
 		$this->set_listener();
 
-		$this->listener->expects($this->atMost(1))
+		$this->listener->expects(self::atMost(1))
 			->method('in_watch_group')
 			->willReturn($in_watch_group);
 
@@ -62,7 +62,7 @@ class team_passwords_test extends listener_base
 		$event = new \phpbb\event\data(compact($event_data));
 		$dispatcher->dispatch($listener, $event);
 
-		$this->assertEquals($expected, $this->config['pass_complex']);
-		$this->assertEquals($sec_min_pass_chars, $this->config['min_pass_chars']);
+		self::assertEquals($expected, $this->config['pass_complex']);
+		self::assertEquals($sec_min_pass_chars, $this->config['min_pass_chars']);
 	}
 }

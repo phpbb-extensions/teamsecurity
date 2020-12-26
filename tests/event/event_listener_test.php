@@ -18,7 +18,7 @@ class event_listener_test extends listener_base
 	public function test_construct()
 	{
 		$this->set_listener();
-		$this->assertInstanceOf('\Symfony\Component\EventDispatcher\EventSubscriberInterface', $this->listener);
+		self::assertInstanceOf('\Symfony\Component\EventDispatcher\EventSubscriberInterface', $this->listener);
 	}
 
 	/**
@@ -26,7 +26,7 @@ class event_listener_test extends listener_base
 	 */
 	public function test_getSubscribedEvents()
 	{
-		$this->assertEquals(array(
+		self::assertEquals(array(
 			'core.user_setup',
 			'core.acp_users_overview_before',
 			'core.ucp_display_module_before',
