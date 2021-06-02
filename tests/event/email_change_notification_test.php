@@ -165,11 +165,10 @@ class email_change_notification_test extends listener_base
 			->method('send_message')
 			->with($expected);
 
-		$dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
+		$dispatcher = new \phpbb\event\dispatcher();
 		$dispatcher->addListener($listener, array($this->listener, 'email_change_notification'));
 
 		$event_data = array('user_row', 'data');
-		$event = new \phpbb\event\data(compact($event_data));
-		$dispatcher->dispatch($listener, $event);
+		$dispatcher->trigger_event($listener, compact($event_data));
 	}
 }

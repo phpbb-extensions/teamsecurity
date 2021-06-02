@@ -61,11 +61,10 @@ class login_notification_test extends listener_base
 			->method('send_message')
 			->with($expected);
 
-		$dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
+		$dispatcher = new \phpbb\event\dispatcher();
 		$dispatcher->addListener('core.login_box_redirect', array($this->listener, 'acp_login_notification'));
 
 		$event_data = array('admin');
-		$event = new \phpbb\event\data(compact($event_data));
-		$dispatcher->dispatch('core.login_box_redirect', $event);
+		$dispatcher->trigger_event('core.login_box_redirect', compact($event_data));
 	}
 }

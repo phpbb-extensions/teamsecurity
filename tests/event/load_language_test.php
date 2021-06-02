@@ -59,15 +59,12 @@ class load_language_test extends listener_base
 	{
 		$this->set_listener();
 
-		$dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
+		$dispatcher = new \phpbb\event\dispatcher();
 		$dispatcher->addListener('core.user_setup', array($this->listener, 'load_language_on_setup'));
 
 		$event_data = array('lang_set_ext');
-		$event = new \phpbb\event\data(compact($event_data));
-		$dispatcher->dispatch('core.user_setup', $event);
-
-		$lang_set_ext = $event->get_data_filtered($event_data);
-		$lang_set_ext = $lang_set_ext['lang_set_ext'];
+		$event_data_after = $dispatcher->trigger_event('core.user_setup', compact($event_data));
+		extract($event_data_after, EXTR_OVERWRITE);
 
 		foreach ($expected_contains as $expected)
 		{
