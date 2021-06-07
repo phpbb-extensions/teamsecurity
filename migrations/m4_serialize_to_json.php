@@ -12,7 +12,7 @@ namespace phpbb\teamsecurity\migrations;
 
 class m4_serialize_to_json extends \phpbb\db\migration\migration
 {
-	static public function depends_on()
+	public static function depends_on()
 	{
 		return array('\phpbb\teamsecurity\migrations\m1_initial');
 	}
@@ -33,7 +33,7 @@ class m4_serialize_to_json extends \phpbb\db\migration\migration
 	 */
 	public function serialize_to_json($cfg)
 	{
-		$data = unserialize(trim($this->config[$cfg]));
+		$data = unserialize(trim($this->config[$cfg]), ['allowed_classes' => false]);
 
 		return $data ? json_encode($data) : '';
 	}

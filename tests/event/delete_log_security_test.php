@@ -42,15 +42,13 @@ class delete_log_security_test extends listener_base
 
 		$this->set_listener();
 
-		$dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
+		$dispatcher = new \phpbb\event\dispatcher();
 		$dispatcher->addListener('core.delete_log', array($this->listener, 'delete_logs_security'));
 
 		$event_data = array('mode', 'log_type');
-		$event = new \phpbb\event\data(compact($event_data));
-		$dispatcher->dispatch('core.delete_log', $event);
+		$event_data_after = $dispatcher->trigger_event('core.delete_log', compact($event_data));
+		extract($event_data_after, EXTR_OVERWRITE);
 
-		$new_events = $event->get_data_filtered($event_data);
-
-		self::assertSame($expected_log_type, $new_events['log_type']);
+		self::assertSame($expected_log_type, $log_type);
 	}
 }

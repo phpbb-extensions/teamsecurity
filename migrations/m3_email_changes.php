@@ -12,7 +12,7 @@ namespace phpbb\teamsecurity\migrations;
 
 class m3_email_changes extends \phpbb\db\migration\migration
 {
-	static public function depends_on()
+	public static function depends_on()
 	{
 		return array('\phpbb\teamsecurity\migrations\m1_initial');
 	}

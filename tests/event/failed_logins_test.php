@@ -50,11 +50,10 @@ class failed_logins_test extends listener_base
 			->method('add')
 			->with('user', $result['user_row']['user_id'], $this->user->ip, 'LOG_TEAM_AUTH_FAIL', time(), array('reportee_id' => $result['user_row']['user_id']));
 
-		$dispatcher = new \Symfony\Component\EventDispatcher\EventDispatcher();
+		$dispatcher = new \phpbb\event\dispatcher();
 		$dispatcher->addListener('core.login_box_failed', array($this->listener, 'log_failed_login_attempts'));
 
 		$event_data = array('result');
-		$event = new \phpbb\event\data(compact($event_data));
-		$dispatcher->dispatch('core.login_box_failed', $event);
+		$dispatcher->trigger_event('core.login_box_failed', compact($event_data));
 	}
 }

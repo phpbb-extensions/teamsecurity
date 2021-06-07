@@ -27,7 +27,7 @@ class functional_test extends \phpbb_functional_test_case
 		$this->login();
 		$this->admin_login();
 
-		$crawler = self::request('GET', "adm/index.php?i=\\phpbb\\teamsecurity\\acp\\teamsecurity_module&mode=settings&sid={$this->sid}");
+		$crawler = self::request('GET', "adm/index.php?i=\\phpbb\\teamsecurity\\acp\\teamsecurity_module&mode=settings&sid=$this->sid");
 		$this->assertContainsLang('ACP_TEAM_SECURITY_SETTINGS', $crawler->filter('#main h1')->text());
 	}
 }
