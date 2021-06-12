@@ -20,7 +20,7 @@ class ext extends \phpbb\extension\base
 	 * The current phpBB version should meet or exceed
 	 * the minimum version required by this extension:
 	 *
-	 * Requires phpBB 3.1.3 due to newly added core events.
+	 * Requires phpBB 3.2.0.
 	 *
 	 * @return bool
 	 * @access public
@@ -28,7 +28,7 @@ class ext extends \phpbb\extension\base
 	public function is_enableable()
 	{
 		$config = $this->container->get('config');
-		return phpbb_version_compare($config['version'], '3.1.3', '>=');
+		return phpbb_version_compare($config['version'], '3.2.0', '>=');
 	}
 
 	/**
