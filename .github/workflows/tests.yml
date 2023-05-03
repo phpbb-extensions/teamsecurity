@@ -24,7 +24,7 @@ jobs:
         runs-on: ubuntu-20.04
         strategy:
             matrix:
-w                include:
+                include:
                     - php: '7.2'
                       db: "none"
                       NOTESTS: 1
