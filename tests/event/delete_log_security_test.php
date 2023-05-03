@@ -19,14 +19,16 @@ class delete_log_security_test extends listener_base
 	 */
 	public function delete_logs_security_data()
 	{
-		return array(
-			array('admin', true, false),
-			array('mod', true, false),
-			array('user', true, false),
-			array('users', true, false),
-			array('', true, true),
-			array('', false, false),
-		);
+		return [
+			['admin', LOG_ADMIN, [], false],
+			['admin', LOG_ADMIN, ['keywords' => ['test']], false],
+			['admin', LOG_ADMIN, ['log_id' => ['IN' => []]], false],
+			['mod', LOG_MOD, [], false],
+			['user', LOG_USER, [], false],
+			['users', LOG_USERS, [], false],
+			['', LOG_CRITICAL, [], true],
+			['', false, [], false],
+		];
 	}
 
 	/**
@@ -34,21 +36,24 @@ class delete_log_security_test extends listener_base
 	 *
 	 * @dataProvider delete_logs_security_data
 	 */
-	public function test_delete_logs_security($mode, $log_type, $expected_log_type)
+	public function test_delete_logs_security($mode, $log_type, $conditions, $expected_log_type)
 	{
 		// Set some user DateTime options
 		$this->user->timezone = new \DateTimeZone('UTC');
-		$this->lang->lang('datetime', array());
+		$this->lang->lang('datetime', []);
 
 		$this->set_listener();
 
-		$dispatcher = new \phpbb\event\dispatcher();
-		$dispatcher->addListener('core.delete_log', array($this->listener, 'delete_logs_security'));
+		$this->listener->expects(self::exactly(count($conditions)))
+			->method('send_message');
 
-		$event_data = array('mode', 'log_type');
+		$dispatcher = new \phpbb\event\dispatcher();
+		$dispatcher->addListener('core.delete_log', [$this->listener, 'delete_logs_security']);
+
+		$event_data = ['mode', 'log_type', 'conditions'];
 		$event_data_after = $dispatcher->trigger_event('core.delete_log', compact($event_data));
 		extract($event_data_after, EXTR_OVERWRITE);
 
-		self::assertSame($expected_log_type, $log_type);
+		self::assertEquals($expected_log_type, $log_type);
 	}
 }
