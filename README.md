@@ -16,4 +16,4 @@ This extension adds passive security features to phpBB that allow the board's fo
 Note: This extension is currently under development and is not ready to install on any live forum.
 
 ## License
-[GNU General Public License v2](http://opensource.org/licenses/GPL-2.0)
+[GNU General Public License v2](https://opensource.org/licenses/GPL-2.0)
