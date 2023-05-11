@@ -33,6 +33,13 @@ class m4_serialize_to_json extends \phpbb\db\migration\migration
 	 */
 	public function serialize_to_json($cfg)
 	{
+		// This check is needed to prevent errors when uninstalling this migration/extension
+		json_decode($this->config[$cfg], false);
+		if (json_last_error() === JSON_ERROR_NONE)
+		{
+			return '';
+		}
+
 		$data = unserialize(trim($this->config[$cfg]), ['allowed_classes' => false]);
 
 		return $data ? json_encode($data) : '';
