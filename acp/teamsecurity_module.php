@@ -75,7 +75,7 @@ class teamsecurity_module
 	public function main()
 	{
 		$this->tpl_name = 'acp_teamsecurity';
-		$this->page_title = $this->language->lang('ACP_TEAM_SECURITY_SETTINGS');
+		$this->page_title = 'ACP_TEAM_SECURITY_SETTINGS';
 
 		// Only allow founders to view/manage these settings
 		if ($this->user->data['user_type'] != USER_FOUNDER)
