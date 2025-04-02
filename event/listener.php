@@ -10,6 +10,11 @@
 
 namespace phpbb\teamsecurity\event;
 
+use phpbb\config\config;
+use phpbb\language\language;
+use phpbb\log\log;
+use phpbb\messenger\method\email;
+use phpbb\user;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -17,16 +22,19 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  */
 class listener implements EventSubscriberInterface
 {
-	/** @var \phpbb\config\config */
+	/** @var config */
 	protected $config;
 
-	/** @var \phpbb\language\language */
+	/** @var email */
+	protected $email_method;
+
+	/** @var language */
 	protected $language;
 
-	/** @var \phpbb\log\log */
+	/** @var log */
 	protected $log;
 
-	/** @var \phpbb\user */
+	/** @var user */
 	protected $user;
 
 	/** @var string phpBB root path */
@@ -38,17 +46,19 @@ class listener implements EventSubscriberInterface
 	/**
 	 * Constructor
 	 *
-	 * @param \phpbb\config\config     $config          Config object
-	 * @param \phpbb\language\language $language        Language object
-	 * @param \phpbb\log\log           $log             The phpBB log system
-	 * @param \phpbb\user              $user            User object
+	 * @param config     $config          Config object
+	 * @param email $email_method    Email method
+	 * @param language $language        Language object
+	 * @param log           $log             The phpBB log system
+	 * @param user              $user            User object
 	 * @param string                   $phpbb_root_path phpBB root path
 	 * @param string                   $phpEx           phpEx
 	 * @access public
 	 */
-	public function __construct(\phpbb\config\config $config, \phpbb\language\language $language, \phpbb\log\log $log, \phpbb\user $user, $phpbb_root_path, $phpEx)
+	public function __construct(config $config, email $email_method, language $language, log $log, user $user, string $phpbb_root_path, string $phpEx)
 	{
 		$this->config = $config;
+		$this->email_method = $email_method;
 		$this->language = $language;
 		$this->log = $log;
 		$this->user = $user;
@@ -283,16 +293,11 @@ class listener implements EventSubscriberInterface
 	 */
 	protected function send_message($message_data, $template, $cc_user = '')
 	{
-		if (!class_exists('messenger'))
-		{
-			include $this->phpbb_root_path . 'includes/functions_messenger.' . $this->php_ext;
-		}
-
-		$messenger = new \messenger(false);
-		$messenger->template('@phpbb_teamsecurity/' . $template);
-		$messenger->to(!empty($this->config['sec_contact']) ? $this->config['sec_contact'] : $this->config['board_contact'], $this->config['board_contact_name']);
-		$messenger->cc($cc_user);
-		$messenger->assign_vars($message_data);
-		$messenger->send();
+		$this->email_method->set_use_queue(false);
+		$this->email_method->template('@phpbb_teamsecurity/' . $template);
+		$this->email_method->to(!empty($this->config['sec_contact']) ? $this->config['sec_contact'] : $this->config['board_contact'], $this->config['board_contact_name']);
+		$this->email_method->cc($cc_user);
+		$this->email_method->assign_vars($message_data);
+		$this->email_method->send();
 	}
 }

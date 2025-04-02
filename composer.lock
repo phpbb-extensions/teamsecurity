@@ -1,11 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "hash": "e850460513ee3fc3b5ef50f07ae2122c",
-    "content-hash": "16d560f796d2f55cacc2ba4181c46e11",
+    "content-hash": "a053eca997a7f176f50a7b20028a853a",
     "packages": [
         {
             "name": "composer/installers",
@@ -99,7 +98,7 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2015-01-11 03:51:11"
+            "time": "2015-01-11T03:51:11+00:00"
         }
     ],
     "packages-dev": [],
@@ -109,7 +108,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.3.3"
+        "php": ">=5.4"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.6.0"
 }
