@@ -25,7 +25,7 @@
 	"extra": {
 		"display-name": "Team Security Measures",
 		"soft-require": {
-			"phpbb/phpbb": ">=3.2.0"
+			"phpbb/phpbb": ">=4.0.0-dev"
 		}
 	},
 	"config": {
