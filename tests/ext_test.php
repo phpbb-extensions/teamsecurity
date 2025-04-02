@@ -10,10 +10,13 @@
 
 namespace phpbb\teamsecurity\tests;
 
+require_once __DIR__ . '/../ext.php';
+
 class ext_test extends \phpbb_database_test_case
 {
 	protected const TEAM_SECURITY = 'phpbb/teamsecurity';
 	protected $extension_manager;
+	protected $class_loader;
 
 	public function getDataSet()
 	{
@@ -24,7 +27,6 @@ class ext_test extends \phpbb_database_test_case
 	{
 		parent::setUp();
 
-		$this->db = null;
 		$this->extension_manager = $this->create_extension_manager();
 	}
 
@@ -53,16 +55,20 @@ class ext_test extends \phpbb_database_test_case
 
 	protected function create_extension_manager()
 	{
-		global $phpbb_root_path, $php_ext;
+		$phpbb_root_path = __DIR__ . './../../../../';
+		$php_ext = 'php';
 
 		$config = new \phpbb\config\config(['version' => PHPBB_VERSION]);
 		$db = $this->new_dbal();
+		$db_doctrine = $this->new_doctrine_dbal();
 		$phpbb_dispatcher = new \phpbb_mock_event_dispatcher();
 		$factory = new \phpbb\db\tools\factory();
-		$db_tools = $factory->get($db);
+		$finder_factory = new \phpbb\finder\factory(null, false, $phpbb_root_path, $php_ext);
+		$db_tools = $factory->get($db_doctrine);
 		$table_prefix = 'phpbb_';
 
 		$container = new \phpbb_mock_container_builder();
+		$container->set('event_dispatcher',  $phpbb_dispatcher);
 
 		$migrator = new \phpbb\db\migrator(
 			$container,
@@ -73,20 +79,19 @@ class ext_test extends \phpbb_database_test_case
 			$phpbb_root_path,
 			$php_ext,
 			$table_prefix,
+			self::get_core_tables(),
 			[],
 			new \phpbb\db\migration\helper()
 		);
 		$container->set('migrator', $migrator);
-		$container->set('dispatcher', $phpbb_dispatcher);
 
 		return new \phpbb\extension\manager(
 			$container,
 			$db,
 			$config,
-			new \phpbb\filesystem\filesystem(),
+			$finder_factory,
 			'phpbb_ext',
 			$phpbb_root_path,
-			$php_ext,
 			null
 		);
 	}
