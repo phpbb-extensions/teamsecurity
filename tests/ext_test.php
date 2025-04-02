@@ -85,10 +85,9 @@ class ext_test extends \phpbb_database_test_case
 			$container,
 			$db,
 			$config,
-			new \phpbb\filesystem\filesystem(),
+			$this->createMock('\phpbb\finder\factory'),
 			'phpbb_ext',
 			$phpbb_root_path,
-			$php_ext,
 			null
 		);
 	}
