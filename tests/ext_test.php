@@ -58,8 +58,9 @@ class ext_test extends \phpbb_database_test_case
 		$config = new \phpbb\config\config(['version' => PHPBB_VERSION]);
 		$db = $this->new_dbal();
 		$phpbb_dispatcher = new \phpbb_mock_event_dispatcher();
+		$doctrine_db = $this->new_doctrine_dbal();
 		$factory = new \phpbb\db\tools\factory();
-		$db_tools = $factory->get($db);
+		$db_tools = $factory->get($doctrine_db);
 		$table_prefix = 'phpbb_';
 
 		$container = new \phpbb_mock_container_builder();
