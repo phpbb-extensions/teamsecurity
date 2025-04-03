@@ -62,7 +62,6 @@ class ext_test extends \phpbb_database_test_case
 		$db = $this->new_dbal();
 		$db_doctrine = $this->new_doctrine_dbal();
 		$phpbb_dispatcher = new \phpbb_mock_event_dispatcher();
-		$doctrine_db = $this->new_doctrine_dbal();
 		$factory = new \phpbb\db\tools\factory();
 		$finder_factory = new \phpbb\finder\factory(null, false, $phpbb_root_path, $php_ext);
 		$db_tools = $factory->get($db_doctrine);
