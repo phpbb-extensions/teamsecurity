@@ -18,6 +18,9 @@ class listener_base extends \phpbb_test_case
 	/** @var \phpbb\config\config */
 	protected $config;
 
+	/** @var hpbb\messenger\method\email */
+	protected $email_method;
+
 	/** @var \PHPUnit\Framework\MockObject\MockObject|\phpbb\log\log */
 	protected $log;
 
@@ -44,6 +47,7 @@ class listener_base extends \phpbb_test_case
 
 		// Load/Mock classes required by the event listener class
 		$this->config = new \phpbb\config\config(array('default_dateformat' => 'D M d, Y H:i:s A'));
+		$this->email_method = $this->getMockBuilder('\phpbb\messenger\method\email')->disableOriginalConstructor()->getMock();
 		$this->log = $this->getMockBuilder('\phpbb\log\log')
 			->disableOriginalConstructor()
 			->getMock();
@@ -70,6 +74,7 @@ class listener_base extends \phpbb_test_case
 			))
 			->setConstructorArgs(array(
 				$this->config,
+				$this->email_method,
 				$this->lang,
 				$this->log,
 				$this->user,
