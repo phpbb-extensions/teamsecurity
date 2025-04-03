@@ -10,13 +10,10 @@
 
 namespace phpbb\teamsecurity\tests;
 
-require_once __DIR__ . '/../ext.php';
-
 class ext_test extends \phpbb_database_test_case
 {
 	protected const TEAM_SECURITY = 'phpbb/teamsecurity';
 	protected $extension_manager;
-	protected $class_loader;
 
 	public function getDataSet()
 	{
