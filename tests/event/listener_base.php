@@ -68,7 +68,7 @@ class listener_base extends \phpbb_test_case
 	protected function set_listener()
 	{
 		$this->listener = $this->getMockBuilder('\phpbb\teamsecurity\event\listener')
-			->setMethods(array(
+			->onlyMethods(array(
 				'in_watch_group',
 				'send_message'
 			))
