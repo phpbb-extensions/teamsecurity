@@ -3,6 +3,7 @@
 This is the repository for the development of the Team Security extension for phpBB.
 
 [![Build Status](https://github.com/phpbb-extensions/teamsecurity/actions/workflows/tests.yml/badge.svg)](https://github.com/phpbb-extensions/teamsecurity/actions)
+[![codecov](https://codecov.io/gh/phpbb-extensions/teamsecurity/graph/badge.svg?token=giD7YLSzK0)](https://codecov.io/gh/phpbb-extensions/teamsecurity)
 
 This extension adds passive security features to phpBB that allow the board's founder to watch for potential attacks against members of privileged groups, such as Administrators and Moderators.
 
