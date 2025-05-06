@@ -33,7 +33,7 @@ class ext_test extends \phpbb_database_test_case
 		$this->extension_manager->enable(self::TEAM_SECURITY);
 
 		// Assert it's enabled
-		$this->assertEquals([self::TEAM_SECURITY], array_keys($this->extension_manager->all_enabled()));
+		$this->assertEquals([self::TEAM_SECURITY], array_keys($this->create_extension_manager()->all_enabled()));
 		$this->assertEquals([self::TEAM_SECURITY], array_keys($this->extension_manager->all_configured()));
 	}
 
