@@ -33,7 +33,7 @@ class ext_test extends \phpbb_database_test_case
 		$this->extension_manager->enable(self::TEAM_SECURITY);
 
 		// Assert it's enabled
-		$this->assertEquals([self::TEAM_SECURITY], array_keys($this->create_extension_manager()->all_enabled()));
+		$this->assertEquals([self::TEAM_SECURITY], array_keys($this->extension_manager->all_enabled()));
 		$this->assertEquals([self::TEAM_SECURITY], array_keys($this->extension_manager->all_configured()));
 	}
 
@@ -52,7 +52,9 @@ class ext_test extends \phpbb_database_test_case
 
 	protected function create_extension_manager()
 	{
-		$phpbb_root_path = __DIR__ . './../../../../';
+		global $phpbb_log, $user;
+
+		$phpbb_root_path = dirname(__DIR__, 2) . '/';
 		$php_ext = 'php';
 
 		$config = new \phpbb\config\config(['version' => PHPBB_VERSION]);
