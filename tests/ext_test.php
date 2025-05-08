@@ -52,8 +52,6 @@ class ext_test extends \phpbb_database_test_case
 
 	protected function create_extension_manager()
 	{
-		global $phpbb_log, $user;
-
 		$phpbb_root_path = dirname(__DIR__, 2) . '/';
 		$php_ext = 'php';
 
