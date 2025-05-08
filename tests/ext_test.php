@@ -52,7 +52,7 @@ class ext_test extends \phpbb_database_test_case
 
 	protected function create_extension_manager()
 	{
-		$phpbb_root_path = __DIR__ . './../../../../';
+		$phpbb_root_path = dirname(__DIR__, 2) . '/';
 		$php_ext = 'php';
 
 		$config = new \phpbb\config\config(['version' => PHPBB_VERSION]);
