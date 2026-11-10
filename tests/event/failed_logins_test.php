@@ -56,4 +56,33 @@ class failed_logins_test extends listener_base
 		$event_data = array('result');
 		$dispatcher->trigger_event('core.login_box_failed', compact($event_data));
 	}
+
+	/**
+	 * Test a failed login without user data (invalid login form key) is ignored
+	 * without raising undefined index warnings
+	 */
+	public function test_log_failed_login_attempts_without_user_row()
+	{
+		$this->config = new \phpbb\config\config(array(
+			'sec_login_attempts' => true,
+		));
+
+		$this->set_listener();
+
+		$this->listener->expects(self::never())
+			->method('in_watch_group');
+
+		$this->log->expects(self::never())
+			->method('add');
+
+		$dispatcher = new \phpbb\event\dispatcher();
+		$dispatcher->addListener('core.login_box_failed', array($this->listener, 'log_failed_login_attempts'));
+
+		$result = array(
+			'status'	=> false,
+			'error_msg'	=> 'FORM_INVALID',
+		);
+		$event_data = array('result');
+		$dispatcher->trigger_event('core.login_box_failed', compact($event_data));
+	}
 }
