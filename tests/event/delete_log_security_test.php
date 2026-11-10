@@ -40,7 +40,6 @@ class delete_log_security_test extends listener_base
 	{
 		// Set some user DateTime options
 		$this->user->timezone = new \DateTimeZone('UTC');
-		$this->lang->lang('datetime', []);
 
 		$this->set_listener();
 

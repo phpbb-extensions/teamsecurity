@@ -48,7 +48,6 @@ class login_notification_test extends listener_base
 
 		// Set some user DateTime options
 		$this->user->timezone = new \DateTimeZone('UTC');
-		$this->lang->lang('datetime', array());
 
 		$this->set_listener();
 
